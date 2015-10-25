@@ -1,9 +1,10 @@
 const chai = require('chai');
 const assert = chai.assert;
+const Tile = require('../lib/tile');
 
 describe('Tile', function () {
   it('can move up', function() {
-    tile = new Tile(1, 0, 7);
+    var tile = new Tile(1, 0, 7);
     tile.move('up');
 
     assert.equal(tile.column, 0);
@@ -11,7 +12,7 @@ describe('Tile', function () {
   });
 
   it('can move right', function() {
-    tile = new Tile(1, 0, 0);
+    var tile = new Tile(1, 0, 0);
     tile.move('right');
 
     assert.equal(tile.column, 1);
@@ -19,7 +20,7 @@ describe('Tile', function () {
   });
 
   it('can move down', function() {
-    tile = new Tile(1, 0, 0);
+    var tile = new Tile(1, 0, 0);
     tile.move('down');
 
     assert.equal(tile.column, 0);
@@ -27,7 +28,7 @@ describe('Tile', function () {
   });
 
   it('can move left', function() {
-    tile = new Tile(1, 1, 0);
+    var tile = new Tile(1, 1, 0);
     tile.move('left');
 
     assert.equal(tile.column, 0);
