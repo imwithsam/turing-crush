@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
   entry: {
     main: "./lib/index.js",
@@ -13,10 +11,11 @@ module.exports = {
     loaders: [
       { test: /\.js$/, exclude: '/node_modules/', loader: 'babel-loader' },
       { test: /\.css$/, loader: "style!css" },
-      { test: /\.scss$/, loader: "style!css!sass" }
+      { test: /\.scss$/, loader: "style!css!sass" },
+      { test: /\.png$/, loader: "url-loader?mimetype=image/png" }
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.json', '.scss', 'css']
+    extensions: ['', '.js', '.json', '.scss', '.css', '.png']
   }
 };
