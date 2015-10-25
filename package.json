@@ -1,7 +1,7 @@
 {
   "name": "turing-crush",
   "version": "0.1.0",
-  "description": "JavaScript game based the game Bejeweled",
+  "description": "JavaScript game based on the game Bejeweled",
   "main": "index.js",
   "scripts": {
     "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
