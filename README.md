@@ -1,6 +1,7 @@
 # Turing Crush
 
-Turing Crush is a JavaScript game loosely based on the popular game Bejeweled.
+Turing Crush is a JavaScript game loosely based on the popular game
+[Bejeweled](http://bejeweled.popcap.com/html5/0.9.12.9490/html5/Bejeweled.html).
 
 To install the dependencies:
 
