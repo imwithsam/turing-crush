@@ -1,5 +1,6 @@
 const chai = require('chai');
 const assert = chai.assert;
+const Tile = require('../lib/tile');
 const Board = require('../lib/board');
 
 describe('Board', function () {
@@ -8,9 +9,40 @@ describe('Board', function () {
     board.generate();
 
     assert.equal(board.tiles.length, 64);
-    assert.equal(typeof board.tiles[0].type, 'number');
-    assert.equal(typeof board.tiles[0].column, 'number');
-    assert.equal(typeof board.tiles[0].row, 'number');
+    assert.isNumber(board.tiles[0].type);
+    assert.isNumber(board.tiles[0].column);
+    assert.isNumber(board.tiles[0].row);
+  });
+
+  it('can retrieve a specific tile', function() {
+    var board = new Board(null, null, 8, 8, 70, 70);
+    board.generate();
+    var tile1 = board.getTile(0, 0);
+    var tile2 = board.getTile(7, 7);
+    var types = [1, 2, 3, 4, 5, 6, 7];
+
+    assert.instanceOf(tile1, Tile);
+    assert.include(types, tile1.type);
+    assert.instanceOf(tile2, Tile);
+    assert.include(types, tile2.type);
+  });
+
+  it.only('can swap two horizontally adjacent tiles', function() {
+    var board = new Board(null, null, 8, 8, 70, 70);
+    var tile1 = new Tile(1, 0, 0);
+    var tile2 = new Tile(2, 1, 0);
+    board.tiles.push(tile1);
+    board.tiles.push(tile2);
+    board.swapTiles(tile1, tile2);
+    var newTile1 = board.getTile(0, 0);
+    var newTile2 = board.getTile(1, 0);
+
+    assert.equal(newTile1.type, 2);
+    assert.equal(newTile1.column, 0);
+    assert.equal(newTile1.row, 0);
+    assert.equal(newTile2.type, 1);
+    assert.equal(newTile2.column, 1);
+    assert.equal(newTile2.row, 0);
   });
 
   it('can clear 3 horizontally matching tiles', function () {
