@@ -45,6 +45,24 @@ describe('Board', function () {
     assert.equal(newTile2.row, 0);
   });
 
+  it('can swap two vertically adjacent tiles', function() {
+    var board = new Board(null, null, 8, 8, 70, 70);
+    var tile1 = new Tile(1, 0, 0);
+    var tile2 = new Tile(2, 0, 1);
+    board.tiles.push(tile1);
+    board.tiles.push(tile2);
+    board.swapTiles(tile1, tile2);
+    var newTile1 = board.getTile(0, 0);
+    var newTile2 = board.getTile(0, 1);
+
+    assert.equal(newTile1.type, 2);
+    assert.equal(newTile1.column, 0);
+    assert.equal(newTile1.row, 0);
+    assert.equal(newTile2.type, 1);
+    assert.equal(newTile2.column, 0);
+    assert.equal(newTile2.row, 1);
+  });
+
   it.skip('can clear 3 horizontally matching tiles', function () {
     var board = new Board();
     board.push(new Tile(1, 0, 7));
