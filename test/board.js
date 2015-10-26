@@ -33,7 +33,7 @@ describe('Board', function () {
     var tile2 = new Tile(2, 1, 0);
     board.tiles.push(tile1);
     board.tiles.push(tile2);
-    board.swapTiles(tile1, tile2);
+    tile1.swapWith(tile2);
     var newTile1 = board.getTile(0, 0);
     var newTile2 = board.getTile(1, 0);
 
@@ -51,7 +51,7 @@ describe('Board', function () {
     var tile2 = new Tile(2, 0, 1);
     board.tiles.push(tile1);
     board.tiles.push(tile2);
-    board.swapTiles(tile1, tile2);
+    tile1.swapWith(tile2);
     var newTile1 = board.getTile(0, 0);
     var newTile2 = board.getTile(0, 1);
 
@@ -60,6 +60,24 @@ describe('Board', function () {
     assert.equal(newTile1.row, 0);
     assert.equal(newTile2.type, 1);
     assert.equal(newTile2.column, 0);
+    assert.equal(newTile2.row, 1);
+  });
+
+  it('cannot swap two diagonally adjacent tiles', function() {
+    var board = new Board(null, null, 8, 8, 70, 70);
+    var tile1 = new Tile(1, 0, 0);
+    var tile2 = new Tile(2, 1, 1);
+    board.tiles.push(tile1);
+    board.tiles.push(tile2);
+    tile1.swapWith(tile2);
+    var newTile1 = board.getTile(0, 0);
+    var newTile2 = board.getTile(1, 1);
+
+    assert.equal(newTile1.type, 1);
+    assert.equal(newTile1.column, 0);
+    assert.equal(newTile1.row, 0);
+    assert.equal(newTile2.type, 2);
+    assert.equal(newTile2.column, 1);
     assert.equal(newTile2.row, 1);
   });
 
