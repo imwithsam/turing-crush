@@ -27,13 +27,13 @@ describe('Board', function () {
     assert.include(types, tile2.type);
   });
 
-  it('can swap two horizontally adjacent tiles', function() {
+  it.skip('can swap two horizontally adjacent tiles', function() {
     var board = new Board(null, null, 8, 8, 70, 70);
     var tile1 = new Tile(1, 0, 0);
     var tile2 = new Tile(2, 1, 0);
     board.tiles.push(tile1);
     board.tiles.push(tile2);
-    tile1.swapWith(tile2);
+    board.swapTiles(tile1, tile2);
     var newTile1 = board.getTile(0, 0);
     var newTile2 = board.getTile(1, 0);
 
@@ -45,13 +45,13 @@ describe('Board', function () {
     assert.equal(newTile2.row, 0);
   });
 
-  it('can swap two vertically adjacent tiles', function() {
+  it.skip('can swap two vertically adjacent tiles', function() {
     var board = new Board(null, null, 8, 8, 70, 70);
     var tile1 = new Tile(1, 0, 0);
     var tile2 = new Tile(2, 0, 1);
     board.tiles.push(tile1);
     board.tiles.push(tile2);
-    tile1.swapWith(tile2);
+    board.swapTiles(tile1, tile2);
     var newTile1 = board.getTile(0, 0);
     var newTile2 = board.getTile(0, 1);
 
@@ -69,7 +69,7 @@ describe('Board', function () {
     var tile2 = new Tile(2, 1, 1);
     board.tiles.push(tile1);
     board.tiles.push(tile2);
-    tile1.swapWith(tile2);
+    board.swapTiles(tile1, tile2);
     var newTile1 = board.getTile(0, 0);
     var newTile2 = board.getTile(1, 1);
 
@@ -79,6 +79,98 @@ describe('Board', function () {
     assert.equal(newTile2.type, 2);
     assert.equal(newTile2.column, 1);
     assert.equal(newTile2.row, 1);
+  });
+
+  it('can swap tiles if a 3 match is made', function() {
+    var board = new Board(null, null, 8, 8, 70, 70);
+    var tile1 = new Tile(1, 0, 0);
+    var tile2 = new Tile(2, 1, 0);
+    var tile3 = new Tile(1, 0, 1);
+    var tile4 = new Tile(2, 1, 1);
+    var tile5 = new Tile(2, 0, 2);
+    var tile6 = new Tile(1, 1, 2);
+    board.tiles.push(tile1);
+    board.tiles.push(tile2);
+    board.tiles.push(tile3);
+    board.tiles.push(tile4);
+    board.tiles.push(tile5);
+    board.tiles.push(tile6);
+
+    // Valid swap
+    board.swapTiles(tile5, tile6);
+    var newTile5 = board.getTile(0, 2);
+    var newTile6 = board.getTile(1, 2);
+
+    assert.equal(newTile5.type, 1);
+    assert.equal(newTile5.column, 0);
+    assert.equal(newTile5.row, 2);
+    assert.equal(newTile6.type, 2);
+    assert.equal(newTile6.column, 1);
+    assert.equal(newTile6.row, 2);
+  });
+
+  it('cannot swap tiles unless a 3 match is made', function() {
+    var board = new Board(null, null, 8, 8, 70, 70);
+    var tile1 = new Tile(1, 0, 0);
+    var tile2 = new Tile(2, 1, 0);
+    var tile3 = new Tile(1, 0, 1);
+    var tile4 = new Tile(2, 1, 1);
+    var tile5 = new Tile(2, 0, 2);
+    var tile6 = new Tile(1, 1, 2);
+    board.tiles.push(tile1);
+    board.tiles.push(tile2);
+    board.tiles.push(tile3);
+    board.tiles.push(tile4);
+    board.tiles.push(tile5);
+    board.tiles.push(tile6);
+
+    // Invalid swap
+    board.swapTiles(tile1, tile2);
+    var newTile1 = board.getTile(0, 0);
+    var newTile2 = board.getTile(1, 0);
+
+    assert.equal(newTile1.type, 1);
+    assert.equal(newTile1.column, 0);
+    assert.equal(newTile1.row, 0);
+    assert.equal(newTile2.type, 2);
+    assert.equal(newTile2.column, 1);
+    assert.equal(newTile2.row, 0);
+
+    // Invalid swap
+    board.swapTiles(tile2, tile1);
+    var newTile1 = board.getTile(0, 0);
+    var newTile2 = board.getTile(1, 0);
+
+    assert.equal(newTile1.type, 1);
+    assert.equal(newTile1.column, 0);
+    assert.equal(newTile1.row, 0);
+    assert.equal(newTile2.type, 2);
+    assert.equal(newTile2.column, 1);
+    assert.equal(newTile2.row, 0);
+
+    // Invalid swap
+    board.swapTiles(tile3, tile4);
+    var newTile3 = board.getTile(0, 1);
+    var newTile4 = board.getTile(1, 1);
+
+    assert.equal(newTile3.type, 1);
+    assert.equal(newTile3.column, 0);
+    assert.equal(newTile3.row, 1);
+    assert.equal(newTile4.type, 2);
+    assert.equal(newTile4.column, 1);
+    assert.equal(newTile4.row, 1);
+
+    // Invalid swap
+    board.swapTiles(tile4, tile3);
+    var newTile3 = board.getTile(0, 1);
+    var newTile4 = board.getTile(1, 1);
+
+    assert.equal(newTile3.type, 1);
+    assert.equal(newTile3.column, 0);
+    assert.equal(newTile3.row, 1);
+    assert.equal(newTile4.type, 2);
+    assert.equal(newTile4.column, 1);
+    assert.equal(newTile4.row, 1);
   });
 
   it.skip('can clear 3 horizontally matching tiles', function () {
