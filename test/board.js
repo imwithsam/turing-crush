@@ -173,18 +173,19 @@ describe('Board', function () {
     assert.equal(newTile4.row, 1);
   });
 
-  it.skip('can clear 3 horizontally matching tiles', function () {
+  it('can clear 3 horizontally matching tiles', function () {
     var board = new Board();
-    board.push(new Tile(1, 0, 7));
-    board.push(new Tile(1, 1, 7));
-    board.push(new Tile(1, 2, 7));
-    board.push(new Tile(2, 3, 7));
-    board.clearMatches();
+    board.tiles.push(new Tile(1, 0, 7));
+    board.tiles.push(new Tile(1, 1, 7));
+    board.tiles.push(new Tile(1, 2, 7));
+    board.tiles.push(new Tile(2, 3, 7));
+    board.getAllMatches();
+    // [{tile1, tile2, tile3}, {tile1, tile2, tile3, tile4}]
 
-    assert.equal(board.tileAt(0, 7).type, 0);
-    assert.equal(board.tileAt(1, 7).type, 0);
-    assert.equal(board.tileAt(2, 7).type, 0);
-    assert.equal(board.tileAt(3, 7).type, 2);
+    assert.equal(board.getTile(0, 7).type, 0);
+    assert.equal(board.getTile(1, 7).type, 0);
+    assert.equal(board.getTile(2, 7).type, 0);
+    assert.equal(board.getTile(3, 7).type, 2);
   });
 
   it.skip('can clear 3 vertically matching tiles', function () {
@@ -209,7 +210,7 @@ describe('Board', function () {
     board.push(tile1);
     board.push(tile2);
     board.push(tile3);
-    var matches = board.getMatches();
+    var matches = board.getMatchesFor();
 
     assert.equal(matches, [[ tile1, tile2, tile3 ]]);
   });
@@ -222,7 +223,7 @@ describe('Board', function () {
     board.push(tile1);
     board.push(tile2);
     board.push(tile3);
-    var matches = board.getMatches();
+    var matches = board.getMatchesFor();
 
     assert.equal(matches, [[ tile1, tile2, tile3 ]]);
   });
