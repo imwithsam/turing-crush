@@ -1,0 +1,18 @@
+@font-face {
+  font-family: candy;
+  src: url('assets/candy.ttf');
+}
+
+* {
+  color: orange;
+  font-family: candy;
+  -webkit-text-stroke: 3px gold;
+}
+
+#title {
+  font-size: 91px;
+}
+
+#score-box * {
+  font-size: 50px;
+}
